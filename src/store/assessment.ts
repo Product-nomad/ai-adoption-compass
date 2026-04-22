@@ -6,14 +6,16 @@ import { phases } from "../data/phases";
 interface AssessmentState {
   projectName: string;
   gateStates: Record<string, GateStatus>;
+  gateNotes: Record<string, string>;
   expandedAdvice: Record<string, boolean>;
   setProjectName: (name: string) => void;
   setGateStatus: (gateId: string, status: GateStatus) => void;
+  setGateNote: (gateId: string, note: string) => void;
   toggleAdvice: (gateId: string) => void;
   getPhaseProgress: (phaseId: number) => number;
   getOverallProgress: () => number;
-  importState: (data: { projectName: string; gateStates: Record<string, GateStatus> }) => void;
-  exportState: () => { projectName: string; gateStates: Record<string, GateStatus> };
+  importState: (data: { projectName: string; gateStates: Record<string, GateStatus>; gateNotes?: Record<string, string> }) => void;
+  exportState: () => { projectName: string; gateStates: Record<string, GateStatus>; gateNotes: Record<string, string> };
 }
 
 const initialGateStates: Record<string, GateStatus> = {};
@@ -28,11 +30,16 @@ export const useAssessmentStore = create<AssessmentState>()(
     (set, get) => ({
       projectName: "My AI Project",
       gateStates: { ...initialGateStates },
+      gateNotes: {},
       expandedAdvice: {},
       setProjectName: (name) => set({ projectName: name }),
       setGateStatus: (gateId, status) =>
         set((state) => ({
           gateStates: { ...state.gateStates, [gateId]: status },
+        })),
+      setGateNote: (gateId, note) =>
+        set((state) => ({
+          gateNotes: { ...state.gateNotes, [gateId]: note },
         })),
       toggleAdvice: (gateId) =>
         set((state) => ({
@@ -58,10 +65,12 @@ export const useAssessmentStore = create<AssessmentState>()(
         set({
           projectName: data.projectName,
           gateStates: { ...initialGateStates, ...data.gateStates },
+          gateNotes: data.gateNotes || {},
         }),
       exportState: () => ({
         projectName: get().projectName,
         gateStates: get().gateStates,
+        gateNotes: get().gateNotes,
       }),
     }),
     { name: "ai-adoption-assessment" }

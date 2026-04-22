@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Gate, GateStatus } from "../data/phases";
 import { useAssessmentStore } from "../store/assessment";
 
@@ -15,10 +16,11 @@ interface GateCardProps {
 }
 
 export function GateCard({ gate, accentColor }: GateCardProps) {
-  const { gateStates, setGateStatus, expandedAdvice, toggleAdvice } = useAssessmentStore();
+  const { gateStates, setGateStatus, gateNotes, setGateNote, expandedAdvice, toggleAdvice } = useAssessmentStore();
   const currentStatus = gateStates[gate.id] || "not_started";
   const isExpanded = expandedAdvice[gate.id] || false;
   const config = statusConfig[currentStatus];
+  const note = gateNotes[gate.id] || "";
 
   const getButtonStyle = (status: GateStatus, isActive: boolean) => {
     if (!isActive) {
@@ -86,10 +88,21 @@ export function GateCard({ gate, accentColor }: GateCardProps) {
       {isExpanded && (
         <div className="px-4 pb-4 border-t border-border">
           <div className="pt-3 pl-4 border-l-2" style={{ borderLeftColor: accentColor }}>
-            <p className="text-sm text-muted-foreground leading-relaxed">{gate.advice}</p>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-3">{gate.advice}</p>
           </div>
         </div>
       )}
+
+      {/* Notes input */}
+      <div className="px-4 pb-3">
+        <textarea
+          value={note}
+          onChange={(e) => setGateNote(gate.id, e.target.value)}
+          placeholder="Add your evidence, notes, or comments for this criterion…"
+          className="w-full text-sm bg-muted/50 border border-border rounded-sm px-3 py-2 text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-primary/30 resize-y min-h-[60px]"
+          rows={2}
+        />
+      </div>
     </div>
   );
 }
