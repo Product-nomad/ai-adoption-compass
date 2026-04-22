@@ -56,13 +56,14 @@ export function Header({ activePhaseSlug, onPhaseChange }: HeaderProps) {
                 <div className="w-28 h-1 bg-primary-foreground/15 overflow-hidden">
                   <div
                     className="h-full transition-all duration-500"
+                    suppressHydrationWarning
                     style={{
                       width: `${overall}%`,
                       backgroundColor: overall === 100 ? "var(--gate-green)" : "var(--phase-1-accent)",
                     }}
                   />
                 </div>
-                <span className="font-mono text-lg font-bold">{overall}%</span>
+                <span className="font-mono text-lg font-bold" suppressHydrationWarning>{overall}%</span>
               </div>
             </div>
           </div>
