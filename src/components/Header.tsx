@@ -26,7 +26,7 @@ export function Header({ activePhaseSlug, onPhaseChange }: HeaderProps) {
           <div className="flex items-start justify-between">
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-50 mb-2">
-                PMI CPMAI — Stage Gate Navigator
+                AI Adoption — Stage Gate Navigator
               </p>
               {isEditing ? (
                 <input
