@@ -18,7 +18,7 @@ export interface Phase {
 export const phases: Phase[] = [
   {
     id: 1,
-    name: "AI Strategy",
+    name: "AI Strategy/ Understanding",
     slug: "ai-strategy",
     colorVar: "var(--phase-1)",
     accentVar: "var(--phase-1-accent)",
