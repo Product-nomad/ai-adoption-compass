@@ -34,11 +34,8 @@ export const Route = createRootRoute({
       { title: "The AI Adoption Roadmap" },
       { name: "description", content: "Interactive AI project assessment tool built on the PMI CPMAI framework." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { property: "og:title", content: "The AI Adoption Roadmap" },
+      { property: "og:description", content: "Interactive AI project assessment tool built on the PMI CPMAI framework." },
     ],
     links: [
       {
