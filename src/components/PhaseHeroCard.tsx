@@ -57,10 +57,11 @@ export function PhaseHeroCard({ phase }: PhaseHeroCardProps) {
                 strokeDasharray={circumference}
                 strokeDashoffset={strokeDashoffset}
                 className="transition-all duration-500"
+                suppressHydrationWarning
               />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="font-mono text-lg font-bold">{progress}%</span>
+              <span className="font-mono text-lg font-bold" suppressHydrationWarning>{progress}%</span>
               <span className="font-mono text-[8px] uppercase tracking-widest text-muted-foreground">Done</span>
             </div>
           </div>
