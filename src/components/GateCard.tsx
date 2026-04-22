@@ -1,11 +1,10 @@
-import { useState } from "react";
 import type { Gate, GateStatus } from "../data/phases";
 import { useAssessmentStore } from "../store/assessment";
 
-const statusConfig: Record<GateStatus, { icon: string; label: string; colorClass: string }> = {
-  not_started: { icon: "✗", label: "Not started", colorClass: "bg-gate-red" },
-  in_progress: { icon: "~", label: "In progress", colorClass: "bg-gate-amber" },
-  complete: { icon: "✓", label: "Complete", colorClass: "bg-gate-green" },
+const statusConfig: Record<GateStatus, { icon: string; label: string }> = {
+  not_started: { icon: "✗", label: "Not started" },
+  in_progress: { icon: "~", label: "In progress" },
+  complete: { icon: "✓", label: "Complete" },
 };
 
 const statusOrder: GateStatus[] = ["not_started", "in_progress", "complete"];
@@ -21,10 +20,32 @@ export function GateCard({ gate, accentColor }: GateCardProps) {
   const isExpanded = expandedAdvice[gate.id] || false;
   const config = statusConfig[currentStatus];
 
+  const getButtonStyle = (status: GateStatus, isActive: boolean) => {
+    if (!isActive) {
+      return {
+        backgroundColor: "transparent",
+        color: "var(--muted-foreground)",
+        border: "1px solid var(--border)",
+      };
+    }
+    const colors: Record<GateStatus, string> = {
+      not_started: "var(--gate-red)",
+      in_progress: "var(--gate-amber)",
+      complete: "var(--gate-green)",
+    };
+    return {
+      backgroundColor: colors[status],
+      color: "#fff",
+      border: `1px solid ${colors[status]}`,
+    };
+  };
+
+  const statusColor = currentStatus === "not_started" ? "var(--gate-red)" : currentStatus === "in_progress" ? "var(--gate-amber)" : "var(--gate-green)";
+
   return (
     <div className="border border-border bg-card">
-      <div className="flex items-center gap-3 p-4">
-        <div className="flex gap-1">
+      <div className="flex items-center gap-4 px-4 py-3">
+        <div className="flex gap-1.5">
           {statusOrder.map((status) => {
             const sc = statusConfig[status];
             const isActive = status === currentStatus;
@@ -32,11 +53,8 @@ export function GateCard({ gate, accentColor }: GateCardProps) {
               <button
                 key={status}
                 onClick={() => setGateStatus(gate.id, status)}
-                className="w-8 h-8 flex items-center justify-center font-mono text-sm border border-border transition-colors"
-                style={{
-                  backgroundColor: isActive ? (status === "not_started" ? "var(--gate-red)" : status === "in_progress" ? "var(--gate-amber)" : "var(--gate-green)") : "transparent",
-                  color: isActive ? "#fff" : "var(--muted-foreground)",
-                }}
+                className="w-8 h-8 flex items-center justify-center rounded-full font-mono text-xs transition-colors"
+                style={getButtonStyle(status, isActive)}
                 title={sc.label}
               >
                 {sc.icon}
@@ -45,15 +63,13 @@ export function GateCard({ gate, accentColor }: GateCardProps) {
           })}
         </div>
 
-        <div className="flex-1 min-w-0">
-          <p className="text-sm leading-snug">{gate.label}</p>
-        </div>
+        <p className="flex-1 text-sm min-w-0">{gate.label}</p>
 
         <span
-          className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 shrink-0"
+          className="font-mono text-[9px] uppercase tracking-wider px-2.5 py-1 rounded-full shrink-0"
           style={{
-            backgroundColor: currentStatus === "not_started" ? "var(--gate-red)" : currentStatus === "in_progress" ? "var(--gate-amber)" : "var(--gate-green)",
-            color: "#fff",
+            backgroundColor: `color-mix(in srgb, ${statusColor} 12%, transparent)`,
+            color: statusColor,
           }}
         >
           {config.label}
@@ -61,17 +77,14 @@ export function GateCard({ gate, accentColor }: GateCardProps) {
 
         <button
           onClick={() => toggleAdvice(gate.id)}
-          className="text-xs font-mono text-muted-foreground hover:text-foreground transition-colors shrink-0 px-2 py-1 border border-border"
+          className="font-mono text-[11px] text-muted-foreground hover:text-foreground transition-colors shrink-0 px-2.5 py-1 border border-border rounded-sm"
         >
           {isExpanded ? "▲ hide" : "▼ advice"}
         </button>
       </div>
 
       {isExpanded && (
-        <div
-          className="px-4 pb-4 pt-0 border-t border-border"
-          style={{ borderTopColor: accentColor }}
-        >
+        <div className="px-4 pb-4 border-t border-border">
           <div className="pt-3 pl-4 border-l-2" style={{ borderLeftColor: accentColor }}>
             <p className="text-sm text-muted-foreground leading-relaxed">{gate.advice}</p>
           </div>

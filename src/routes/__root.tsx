@@ -1,8 +1,6 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
 
 function NotFoundComponent() {
   return (
@@ -64,11 +62,5 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
-  return (
-    <>
-      <Header />
-      <Outlet />
-      <Footer />
-    </>
-  );
+  return <Outlet />;
 }
