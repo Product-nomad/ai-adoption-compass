@@ -72,7 +72,7 @@ export function Header({ activePhaseSlug, onPhaseChange }: HeaderProps) {
       {/* Phase tabs */}
       <div className="bg-card border-b border-border">
         <div className="max-w-[960px] mx-auto px-6">
-          <nav className="flex gap-0 overflow-x-auto">
+          <nav className="flex gap-0 overflow-x-auto scrollbar-hide">
             {phases.map((phase) => {
               const isActive = phase.slug === activePhaseSlug;
               return (
