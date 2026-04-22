@@ -29,11 +29,17 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "The AI Adoption Roadmap" },
+      { title: "AI Adoption Framework" },
       { name: "description", content: "Interactive AI project assessment tool built on the PMI CPMAI framework." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "The AI Adoption Roadmap" },
+      { property: "og:title", content: "AI Adoption Framework" },
       { property: "og:description", content: "Interactive AI project assessment tool built on the PMI CPMAI framework." },
+      { name: "twitter:title", content: "AI Adoption Framework" },
+      { name: "twitter:description", content: "Interactive AI project assessment tool built on the PMI CPMAI framework." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2e1748f0-ba26-4d51-bd61-50d3df0d6864/id-preview-b076c5cc--61395cdd-57e6-4479-b5de-a33586780b65.lovable.app-1776859665849.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2e1748f0-ba26-4d51-bd61-50d3df0d6864/id-preview-b076c5cc--61395cdd-57e6-4479-b5de-a33586780b65.lovable.app-1776859665849.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: "website" },
     ],
     links: [
       {
